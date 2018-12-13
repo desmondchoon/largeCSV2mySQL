@@ -1,3 +1,9 @@
+This is a fork from sanathp's original PHP script to import large CSV Files to MySQL.
+
+Added features
+==============
+1. Choose type of delimiter (comma or tab).
+
 largeCSV2mySQL
 ==============
 
