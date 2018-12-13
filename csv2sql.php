@@ -50,6 +50,15 @@
 		eg. MYDATA.csv
     </div>
 	<div class="form-group">
+        <label for="db" class="control-label col-xs-2">Delimiter Type</label>
+		<div class="col-xs-3">
+        <select type="text" class="form-control" name="delimiter" id="delimiter" value="comma">
+			<option value="comma">Comma</option>
+			<option value="tab">Tab</option>
+		</select>
+		</div>
+    </div>
+	<div class="form-group">
 	<label for="login" class="control-label col-xs-2"></label>
     <div class="col-xs-3">
     <button type="submit" class="btn btn-primary">Upload</button>
@@ -77,6 +86,11 @@ $password= '';
 }
 $db=$_POST['db'];
 $file=$_POST['csv'];
+if($_POST['delimiter'] == 'comma'){
+	$delimiter_str = ",";
+}else{
+	$delimiter_str = "\t";
+}
 $cons= mysqli_connect("$sqlname", "$username","$password","$db") or die(mysql_error());
 
 $result1=mysqli_query($cons,"select count(*) count from $table");
@@ -88,7 +102,7 @@ $count1=(int)$r1['count'];
 mysqli_query($cons, '
     LOAD DATA LOCAL INFILE "'.$file.'"
         INTO TABLE '.$table.'
-        FIELDS TERMINATED by \',\'
+        FIELDS TERMINATED by "'.$delimiter_str.'"
         LINES TERMINATED BY \'\n\'
 ')or die(mysql_error());
 
